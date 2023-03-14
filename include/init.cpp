@@ -3,7 +3,7 @@
 #include "cstdio"
 #include "defs.h"
 #include "structs.h"
-
+#include "SDL_mixer.h"
 
 void initSDL(App &app)
 {
@@ -18,6 +18,13 @@ void initSDL(App &app)
         printf("Ca marche pas la mon gars car : %s\n", SDL_GetError());
         exit(1);
     }
+
+    if (Mix_Init(0) < 0)
+    {
+        printf("Ca marche pas la mon gars car : %s\n", Mix_GetError());
+    }
+
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
 
     app.window = SDL_CreateWindow("Chaos", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, windowFlags);
 

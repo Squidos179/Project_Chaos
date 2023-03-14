@@ -11,4 +11,4 @@ link_directories(${SDL2_LIB_DIR})
 
 add_executable(Project_Chaos main.cpp include/defs.h include/draw.cpp include/draw.h include/init.cpp include/init.h include/input.cpp include/input.h include/structs.h)
 
-target_link_libraries(${PROJECT_NAME} SDL2main SDL2 SDL2test SDL2_image)
+target_link_libraries(${PROJECT_NAME} SDL2main SDL2 SDL2test SDL2_image SDL2_mixer -lsdl2_mixer)

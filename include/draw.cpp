@@ -29,7 +29,7 @@ SDL_Texture *loadTexture(char *filename, App &app){
     return texture;
 }
 
-void blit(SDL_Texture *texture, int width, int height, App &app, Entity &entity)
+void blit(SDL_Texture *texture, App &app, Entity &entity)
 {
     SDL_RenderCopyEx(app.renderer, texture, NULL, &entity.rect, 0, NULL, entity.flip);
 }
