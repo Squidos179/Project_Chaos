@@ -19,7 +19,7 @@ void initSDL(App &app)
         exit(1);
     }
 
-    if (Mix_Init(0) < 0)
+    if (Mix_Init(MIX_INIT_MP3) < 0)
     {
         printf("Ca marche pas la mon gars car : %s\n", Mix_GetError());
     }

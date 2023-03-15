@@ -77,6 +77,13 @@ build CMakeFiles/Project_Chaos.dir/include/input.cpp.obj: CXX_COMPILER__Project_
   OBJECT_DIR = CMakeFiles\Project_Chaos.dir
   OBJECT_FILE_DIR = CMakeFiles\Project_Chaos.dir\include
 
+build CMakeFiles/Project_Chaos.dir/include/stage.cpp.obj: CXX_COMPILER__Project_Chaos_Debug C$:/Users/henri/CLionProjects/Project_Chaos/include/stage.cpp || cmake_object_order_depends_target_Project_Chaos
+  DEP_FILE = CMakeFiles\Project_Chaos.dir\include\stage.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -IC:/libs/SDL/include
+  OBJECT_DIR = CMakeFiles\Project_Chaos.dir
+  OBJECT_FILE_DIR = CMakeFiles\Project_Chaos.dir\include
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Project_Chaos
@@ -85,7 +92,7 @@ build CMakeFiles/Project_Chaos.dir/include/input.cpp.obj: CXX_COMPILER__Project_
 #############################################
 # Link the executable Project_Chaos.exe
 
-build Project_Chaos.exe: CXX_EXECUTABLE_LINKER__Project_Chaos_Debug CMakeFiles/Project_Chaos.dir/main.cpp.obj CMakeFiles/Project_Chaos.dir/include/draw.cpp.obj CMakeFiles/Project_Chaos.dir/include/init.cpp.obj CMakeFiles/Project_Chaos.dir/include/input.cpp.obj
+build Project_Chaos.exe: CXX_EXECUTABLE_LINKER__Project_Chaos_Debug CMakeFiles/Project_Chaos.dir/main.cpp.obj CMakeFiles/Project_Chaos.dir/include/draw.cpp.obj CMakeFiles/Project_Chaos.dir/include/init.cpp.obj CMakeFiles/Project_Chaos.dir/include/input.cpp.obj CMakeFiles/Project_Chaos.dir/include/stage.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lSDL2main  -lSDL2  -lSDL2test  -lSDL2_image  -lSDL2_mixer  -lsdl2_mixer  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/libs/SDL/lib/x64

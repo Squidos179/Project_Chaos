@@ -7,11 +7,14 @@
 #include "include/input.h"
 #include "include/draw.h"
 #include "SDL_mixer.h"
+#include "include/stage.h"
+#include "stdio.h"
 
 App app;
 Entity player;
 Entity oussama;
 Entity bullet;
+Stage stage;
 
 int main(int argc, char *argv[]) {
 
@@ -21,32 +24,17 @@ int main(int argc, char *argv[]) {
     memset(&player, 0, sizeof(Entity));
     memset(&bullet, 0, sizeof(Entity));
     memset(&oussama, 0, sizeof(Entity));
+    memset(&stage, 0, sizeof(Stage));
 
     initSDL(app);
 
-    player.texture = loadTexture("simon.jpg", app);
+    stageinit(player, oussama, bullet, app, stage);
 
-    oussama.texture = loadTexture("oussama.jpg", app);
+    Mix_Music * sound = Mix_LoadMUS("pipe.mp3");
 
-    bullet.texture = loadTexture("bictor.jpg", app);
+    SDL_Surface * surface = SDL_LoadBMP("pipe.bmp");
 
-    player.velocity = 4;
-    player.rect.x = 100;
-    player.rect.y = 100;
-    player.rect.h = 32;
-    player.rect.w = 32;
-
-    oussama.rect.x = 600;
-    oussama.rect.y = 360;
-    oussama.rect.h = 128;
-    oussama.rect.w = 128;
-
-    bullet.rect.x = 30;
-    bullet.rect.y = 30;
-    bullet.rect.h = 16;
-    bullet.rect.w = 16;
-
-    Mix_Music * sound = Mix_LoadMUS("fart.wav");
+    SDL_SetWindowIcon(app.window, surface);
 
     while(1){
 
@@ -54,29 +42,7 @@ int main(int argc, char *argv[]) {
 
         doInput(player, app);
 
-        player.rect.y += 0;
-
-        if (app.up)
-        {
-            player.rect.y -= player.velocity;
-        }
-
-        if (app.down)
-        {
-            player.rect.y += player.velocity;
-        }
-
-        if (app.left)
-        {
-            player.rect.x -= player.velocity;
-            player.flip = SDL_FLIP_HORIZONTAL;
-        }
-
-        if (app.right)
-        {
-            player.rect.x += player.velocity;
-            player.flip = SDL_FLIP_NONE;
-        }
+        logic(player, bullet, app);
 
         if (player.rect.y > 740)
         {
@@ -98,43 +64,20 @@ int main(int argc, char *argv[]) {
             player.rect.x = 1300;
         }
 
+        fireBullet(bullet, player, app);
+
         if (SDL_HasIntersection(&player.rect, &oussama.rect))
         {
             player.velocity = 0;
-        }
-
-        if (app.fire && bullet.health == 0)
-        {
-            bullet.rect.x = player.rect.x;
-            bullet.rect.y = player.rect.y;
-            bullet.dx = 16;
-            bullet.dy = 0;
-            bullet.health = 1;
-        }
-
-        bullet.rect.x += bullet.dx;
-
-        if (bullet.health == 1)
-        {
-            blit(bullet.texture, app, bullet);
-        }
-
-        if (bullet.rect.x > SCREEN_WIDTH)
-        {
-            bullet.health = 0;
         }
 
         if (SDL_HasIntersection(&bullet.rect, &oussama.rect))
         {
             Mix_PlayMusic(sound, 0);
             bullet.health = 0;
-            printf("Success");
         }
 
-        std::cout << app.fire << std::endl;
-
-        blit(player.texture, app, player);
-        blit(oussama.texture, app, oussama);
+        draw(player, app, oussama);
 
         presentScene(app);
 

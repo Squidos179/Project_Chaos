@@ -3,17 +3,7 @@
 #include "SDL.h"
 #include "defs.h"
 
-typedef struct {
-    SDL_Renderer *renderer;
-    SDL_Window *window;
-    int up;
-    int down;
-    int left;
-    int right;
-    int fire;
-} App;
-
-typedef struct {
+typedef struct Entity {
     SDL_Rect rect;
     SDL_Texture *texture;
     SDL_RendererFlip flip;
@@ -21,6 +11,20 @@ typedef struct {
     int dx;
     int dy;
     int health;
-} Entity;
+    int reaload;
+    Entity *next;
+};
+
+typedef struct {
+    Entity fighterHead, *fighterTail;
+    Entity bulletHead, *bulletTail;
+} Stage;
+
+typedef struct {
+    SDL_Renderer *renderer;
+    SDL_Window *window;
+    int keyboard[MAX_KEYBOARD_KEYS];
+    int fire;
+} App;
 
 #endif //PROJECT_CHAOS_STRUCTS_H
