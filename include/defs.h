@@ -6,6 +6,6 @@
 
 #define MAX_KEYBOARD_KEYS 350
 
-#define PLAYER_SPEED 16
+#define PLAYER_SPEED 4
 
 #endif //PROJECT_CHAOS_DEFS_H

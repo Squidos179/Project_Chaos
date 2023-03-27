@@ -15,6 +15,10 @@ void stageinit(Entity &player, Entity &oussama, Entity &bullet, App &app, Stage 
     oussama.rect.y = 360;
     oussama.rect.h = 128;
     oussama.rect.w = 128;
+    oussama.collision.left.x = oussama.rect.x;
+    oussama.collision.left.y = oussama.rect.y;
+    oussama.collision.left.h = 128;
+    oussama.collision.left.w = 3;
 
     bullet.rect.x = 30;
     bullet.rect.y = 30;
@@ -23,6 +27,8 @@ void stageinit(Entity &player, Entity &oussama, Entity &bullet, App &app, Stage 
 
     bullet.texture = loadTexture("bictor.jpg", app);
     oussama.texture = loadTexture("oussama.jpg", app);
+    player.collision.texture = loadTexture("collision.png", app);
+    oussama.collision.texture = loadTexture("collisionL.png", app);
 }
 
 static void initPlayer(Entity &player, App &app, Stage &stage)
@@ -33,11 +39,14 @@ static void initPlayer(Entity &player, App &app, Stage &stage)
     stage.fighterTail->next = &player;
     stage.fighterTail = &player;
 
-    player.velocity = 4;
     player.rect.x = 100;
     player.rect.y = 100;
     player.rect.h = 32;
     player.rect.w = 32;
+    player.collision.right.x = player.rect.x + 29;
+    player.collision.right.y = player.rect.y;
+    player.collision.right.h = 32;
+    player.collision.right.w = 3;
 }
 
 void logic(Entity &player, Entity &bullet, App &app)
@@ -110,6 +119,10 @@ void fireBullet(Entity &bullet, Entity &player, App &app)
 
 void draw(Entity &player, App &app, Entity &oussama)
 {
+    player.collision.right.x = player.rect.x + 29;
+    player.collision.right.y = player.rect.y;
     blit(player.texture, app, player);
     blit(oussama.texture, app, oussama);
+    SDL_RenderCopyEx(app.renderer, oussama.collision.texture, NULL, &oussama.collision.left, 0, NULL, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(app.renderer, player.collision.texture, NULL, &player.collision.right, 0, NULL, SDL_FLIP_NONE);
 }

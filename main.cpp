@@ -66,15 +66,15 @@ int main(int argc, char *argv[]) {
 
         fireBullet(bullet, player, app);
 
-        if (SDL_HasIntersection(&player.rect, &oussama.rect))
-        {
-            player.velocity = 0;
-        }
-
         if (SDL_HasIntersection(&bullet.rect, &oussama.rect))
         {
             Mix_PlayMusic(sound, 0);
             bullet.health = 0;
+        }
+
+        if (player.collision.right.x + player.collision.right.w >= oussama.rect.x) {
+            printf("C'est bon frerot");
+            app.keyboard[SDL_SCANCODE_RIGHT]= 0;
         }
 
         draw(player, app, oussama);
